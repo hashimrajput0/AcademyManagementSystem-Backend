@@ -105,4 +105,4 @@ async function DeleteClass(req, res) {
 }
 
 
-export  { createClass, getClasses }
+export  { createClass, getClasses, DeleteClass }

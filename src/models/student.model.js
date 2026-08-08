@@ -10,21 +10,25 @@ const studentSchema = new mongoose.Schema({
     fatherName: {
       type: String,
       trim: true,
+      required: true,
     },
     academy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Academy",
       required: true,
     },
-    class : {
+    classId : {
         type : mongoose.Schema.Types.ObjectId,
-        ref : "class",
+        ref : "Class",
+        required: true
     },
     roll : {
         type : String,
     },
     phone : {
         type : String,
+        trim: true
+
     },
     gender: {
       type: String,
