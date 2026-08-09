@@ -66,9 +66,6 @@ async function deleteStudent(req, res) {
         message : "Successfully Deleted",
     })
 
-
-
-
     } catch(err) {
         return res.status(500).json({
             message : "Internal Server Error",
@@ -78,4 +75,73 @@ async function deleteStudent(req, res) {
 
 }
 
-export { createStudent, deleteStudent }
+async function getAllStudent(req, res) {
+
+    try {
+
+        const academyId = req.academyId;
+        const { search } = req.query;
+
+        const filter = {
+            academy: academyId
+        };
+
+        if (search) {
+            filter.name = {
+                $regex: search.trim(),
+                $options: "i"
+            };
+        }
+
+        const students = await studentModel.find(filter);
+
+        return res.status(200).json({
+            message: "Successfully fetched students",
+            students
+        });
+
+    } catch (err) {
+
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: err.message
+        });
+    }
+}
+
+async function getClassStudent(req, res) {
+
+try {
+
+        const academyId = req.academyId;
+        const { search, classId  } = req.query;
+
+        const filter = {
+            academy: academyId,
+            classId : classId
+        };
+
+        if (search) {
+            filter.name = {
+                $regex: search.trim(),
+                $options: "i"
+            };
+        }
+
+        const students = await studentModel.find(filter);
+
+        return res.status(200).json({
+            message: "Successfully fetched students",
+            students
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: err.message
+        });
+    }
+}
+
+
+export { createStudent, deleteStudent, getAllStudent, getClassStudent }
